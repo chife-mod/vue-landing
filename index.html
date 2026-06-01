@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>VUE Landing — Estimation Dashboard</title>
+
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+<link rel="stylesheet" href="shared/service-menu.css">
+
+<style>
+/* ─────────────────────────────────────────────────────────────────
+   Launcher palette — studio-fixed (same as Project Dashboard chrome).
+   ─────────────────────────────────────────────────────────────── */
+:root {
+  --brand-blue:       #116490;
+  --brand-blue-dark:  #0d4f72;
+  --brand-blue-light: #9FBACD;
+  --brand-blue-pale:  #e8f2f7;
+  --bg-top:    #0a1219;
+  --bg-bottom: #1e2a35;
+  --charcoal:  #1e2a35;
+  --white:     #fff;
+  --border:    #d8e5ed;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: var(--charcoal);
+  color: var(--white);
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+}
+
+.launcher {
+  flex: 1;
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 32px 120px;
+}
+
+/* sticky top bar with the brand logo — pinned to the top of the screen */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  padding: 0 max(32px, calc(50vw - 508px)) 16px;
+  background: rgba(10, 18, 25, 0.82);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.launcher__logo {
+  display: inline-block;
+  height: 53px;
+}
+.launcher__logo img { display: block; height: 100%; width: auto; }
+
+.launcher__header {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 48px;
+  align-items: end;
+  margin-bottom: 64px;
+}
+
+.launcher__eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--brand-blue-light);
+  margin-bottom: 20px;
+}
+
+.launcher__title {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.launcher__subtitle {
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+@media (max-width: 760px) {
+  .launcher__header { grid-template-columns: 1fr; gap: 16px; align-items: start; }
+}
+
+/* ─── Tiles grid (2 tiles) ───────────────────────────────────── */
+
+.launcher__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  margin-bottom: 64px;
+}
+
+.tile-card {
+  display: flex;
+  flex-direction: column;
+  padding: 32px 30px 28px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  text-decoration: none;
+  color: inherit;
+  min-height: 220px;
+  transition: transform 240ms ease, background 240ms ease, border-color 240ms ease;
+}
+
+.tile-card:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.tile-card__icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  background: rgba(159, 186, 205, 0.1);
+  border: 1px solid rgba(159, 186, 205, 0.2);
+  border-radius: 12px;
+  color: var(--brand-blue-light);
+  margin-bottom: 22px;
+}
+.tile-card__icon svg { width: 22px; height: 22px; }
+
+.tile-card__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--brand-blue-light);
+  margin-bottom: 12px;
+}
+.tile-card__tag::before {
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.tile-card__title {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+
+.tile-card__desc {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 24px;
+  flex: 1;
+}
+
+.tile-card__cta {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--white);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.tile-card__cta::after {
+  content: "→";
+  transition: transform 200ms ease;
+  display: inline-block;
+}
+.tile-card:hover .tile-card__cta::after { transform: translateX(4px); }
+
+.tile-card[data-external] .tile-card__cta::after { content: "↗"; }
+
+.tile-card[data-status="planned"] {
+  opacity: 0.45;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ─── Meta + footer ──────────────────────────────────────────── */
+
+.launcher__meta {
+  margin-top: 8px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px 40px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.launcher__meta-block dt {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 6px;
+}
+
+.launcher__meta-block dd a {
+  color: var(--brand-blue-light);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms ease;
+}
+.launcher__meta-block dd a:hover { border-bottom-color: var(--brand-blue-light); }
+
+.launcher__footer {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.02em;
+  margin-top: 56px;
+}
+</style>
+</head>
+<body>
+
+<script>
+  window.PREVIEW_PROJECT_NAME = "VUE Landing";
+  window.PREVIEW_DEFAULT_VERSION = "launcher";
+  window.PREVIEW_VERSIONS = [
+    { id: "launcher", label: "Dashboard",         desc: "Estimation overview",          path: "" },
+    { id: "sitemap",  label: "Sitemap & Estimate", desc: "Pages, sections & hours",      path: "sitemap/" }
+  ];
+</script>
+
+<header class="topbar">
+  <a class="launcher__logo" href="./" aria-label="VUE Landing — Most of Design">
+    <img src="assets/mod-logo-on-dark.svg" alt="Most of Design">
+  </a>
+</header>
+
+<main class="launcher">
+
+  <header class="launcher__header">
+    <div class="launcher__header-main">
+      <span class="launcher__eyebrow">Most of Design · Project Estimation</span>
+      <h1 class="launcher__title">VUE Landing</h1>
+    </div>
+    <p class="launcher__subtitle">
+      VUE landing page for Energy Plus NY — preliminary scope &amp; estimation workspace. Brief, sitemap and per-section hours in one place.
+    </p>
+  </header>
+
+  <!-- ── Two tiles: Brief + Sitemap & Estimate ─────────────────── -->
+  <div class="launcher__grid">
+
+    <!-- Tile 1 — Brief (opens Google Doc) -->
+    <a class="tile-card" href="https://chatgpt.com/s/t_6a19f6ef14a4819194e0b87446ce4ac1" target="_blank" rel="noopener" data-external>
+      <span class="tile-card__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 3v4a1 1 0 0 0 1 1h4M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8M14 3l5 5M8 13h8M8 17h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="tile-card__tag">Source</span>
+      <h2 class="tile-card__title">Brief</h2>
+      <p class="tile-card__desc">
+        Original client brief — the single source of truth for scope. Opens the source document.
+      </p>
+      <span class="tile-card__cta">Open brief</span>
+    </a>
+
+    <!-- Tile 2 — Sitemap & Estimate (combined) -->
+    <a class="tile-card" href="sitemap/">
+      <span class="tile-card__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="9" y="3" width="6" height="4" rx="1" stroke="currentColor" stroke-width="1.6"/>
+          <rect x="3" y="15" width="6" height="4" rx="1" stroke="currentColor" stroke-width="1.6"/>
+          <rect x="15" y="15" width="6" height="4" rx="1" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M12 7v4m0 0H6v4m6-4h6v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="tile-card__tag">Scope &amp; cost</span>
+      <h2 class="tile-card__title">Sitemap &amp; Estimate</h2>
+      <p class="tile-card__desc">
+        Every page as a card, sections inside it, and hours on each section. Totals roll up into a preliminary estimate.
+      </p>
+      <span class="tile-card__cta">Open sitemap</span>
+    </a>
+
+  </div>
+
+  <dl class="launcher__meta">
+    <div class="launcher__meta-block">
+      <dt>Client</dt>
+      <dd>Energy Plus NY</dd>
+    </div>
+    <div class="launcher__meta-block">
+      <dt>Phase</dt>
+      <dd>Preliminary estimation</dd>
+    </div>
+  </dl>
+
+  <p class="launcher__footer">
+    Internal preview · not for public distribution · © 2026 Most of Design
+  </p>
+</main>
+
+<script defer src="shared/service-menu.js"></script>
+</body>
+</html>

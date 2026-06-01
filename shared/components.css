@@ -1,0 +1,180 @@
+/* ════════════════════════════════════════════════════════════════
+   {{PROJECT_NAME}} — Component library
+   ──────────────────────────────────────────────────────────────
+   Atomic, project-agnostic components. Add project-specific
+   components (cards, markers, etc.) at the END of this file
+   or in a separate file under `shared/`.
+
+   Depends on: shared/tokens.css
+   Reference:  uikit/index.html
+   ──────────────────────────────────────────────────────────── */
+
+/* ════════════════════════════════════════════════════════════
+   BUTTON — .btn + variants + states
+   ──────────────────────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 13px 12px;
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--color-ink);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-md);
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background var(--duration-fast) ease,
+    color      var(--duration-fast) ease,
+    transform  var(--duration-fast) ease;
+}
+.btn svg { width: 16px; height: 16px; }
+
+.btn--primary {
+  background: var(--color-accent);
+  color: var(--color-white);
+  box-shadow: var(--shadow-accent);
+}
+.btn--primary:hover  { background: var(--color-accent-deep); transform: translateY(-1px); }
+.btn--primary:active { transform: translateY(0); }
+
+.btn--ghost {
+  border: 1px solid var(--color-divider);
+}
+.btn--ghost:hover { background: var(--color-paper); }
+
+.btn--text:hover { background: rgba(0, 0, 0, 0.04); }
+
+.btn--lg { padding: 14px 18px; font-size: 15px; }
+.btn--sm { padding: 8px 10px;  font-size: 13px; }
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ════════════════════════════════════════════════════════════
+   CHIP — .chip + variants
+   ──────────────────────────────────────────────────────────── */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 4px 9px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.chip--green  { background: var(--color-success-bg); color: var(--color-success-fg); }
+.chip--violet { background: var(--color-violet-bg);  color: var(--color-violet-fg); }
+.chip--orange { background: var(--color-warn-bg);    color: var(--color-warn-fg); }
+
+.chip--accent {
+  background: var(--color-accent);
+  color: var(--color-white);
+  font-weight: 600;
+  padding: 5px 10px;
+}
+
+.chip--mono {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 10px;
+}
+
+.chip--status {
+  padding: 5px 10px 5px 8px;
+  background: var(--color-glass-dark);
+  color: var(--color-success-accent);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.chip--status::before {
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 999px;
+  background: var(--color-success-accent);
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.18);
+  flex-shrink: 0;
+}
+
+/* ─── Eyebrow — uppercase mono label with leading accent dot ── */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  line-height: 1;
+}
+.eyebrow::before {
+  content: "";
+  width: 8px; height: 8px;
+  border-radius: 999px;
+  background: var(--color-accent);
+}
+
+/* ════════════════════════════════════════════════════════════
+   ICON TILE — icon (Lucide / Solar / etc.) in accent gradient
+   ──────────────────────────────────────────────────────────── */
+
+.icon-tile {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-deep) 100%);
+  color: var(--color-white);
+  box-shadow: var(--shadow-accent);
+  flex-shrink: 0;
+}
+.icon-tile svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.icon-tile--lg     { width: 56px; height: 56px; border-radius: var(--radius-xl); }
+.icon-tile--lg svg { width: 28px; height: 28px; }
+.icon-tile--sm     { width: 32px; height: 32px; border-radius: var(--radius-md); }
+.icon-tile--sm svg { width: 18px; height: 18px; }
+
+/* ════════════════════════════════════════════════════════════
+   Reduced motion
+   ──────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition-duration: 0ms; }
+}

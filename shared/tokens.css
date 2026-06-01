@@ -1,0 +1,99 @@
+/* ════════════════════════════════════════════════════════════════
+   {{PROJECT_NAME}} — Design tokens (single source of truth)
+   ──────────────────────────────────────────────────────────────
+   Locked stylistic baseline. Don't change colors, fonts, spacing,
+   radii, shadows, or motion when bootstrapping a new project —
+   only fill in content placeholders elsewhere. The launcher's
+   visual identity is studio-fixed; brand expression happens
+   inside individual concept pages, not in this template's chrome.
+
+   See:
+     - shared/components.css        — uses these tokens
+     - uikit/index.html             — visual reference
+   ──────────────────────────────────────────────────────────── */
+
+:root {
+  /* ─── BRAND ACCENT ──────────────────────────────────────────
+     Studio-fixed accent used by buttons, focus rings, and the
+     grid-toggle's active state. */
+  --color-accent:      #4B6CFF;
+  --color-accent-deep: #3551D4;
+  --color-accent-soft: #E0E7FF;
+
+  /* ─── INK & SURFACE ───────────────────────────────────────── */
+  --color-ink:          #181E3A;
+  --color-mute:         #5C6275;
+  --color-white:        #FFFFFF;
+  --color-paper:        #F6F8F8;
+
+  /* ─── BORDERS ─────────────────────────────────────────────── */
+  --color-divider:      #BACCDE;
+  --color-border-light: #EEF1F4;
+
+  /* ─── STATUS · semantic, project-agnostic ─────────────────── */
+  --color-success-bg:     #DCFCE7;
+  --color-success-fg:     #15803D;
+  --color-success-accent: #4ADE80;
+  --color-violet-bg:      #E0E7FF;
+  --color-violet-fg:      #4338CA;
+  --color-warn-bg:        #FFEDD5;
+  --color-warn-fg:        #C2410C;
+  --color-pin:            #EF4444;
+
+  /* ─── GLASS surfaces · usually keep ───────────────────────── */
+  --color-glass-bg:    rgba(255, 255, 255, 0.80);
+  --color-glass-dark:  rgba(24, 30, 58, 0.94);
+  --color-glass-blur:  10px;
+
+  /* ─── TYPE families ─────────────────────────────────────────
+     System stack — no extra font-loading request. */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* ─── TYPE scale · 6 steps ──────────────────────────────── */
+  --text-display:        56px;
+  --text-display-mobile: 40px;
+  --text-h2:             32px;
+  --text-h2-mobile:      28px;
+  --text-h3:             20px;
+  --text-h3-mobile:      18px;
+  --text-body:           16px;
+  --text-small:          14px;
+  --text-caption:        12px;
+
+  /* ─── SPACING · 4px grid ────────────────────────────────────
+     Don't pick non-multiples-of-4. If you need a missing step
+     (e.g. 28), add --space-7: 28px here, don't inline. */
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* ─── RADIUS ──────────────────────────────────────────────── */
+  --radius-sm:    4px;
+  --radius-md:    8px;     /* button */
+  --radius-lg:   12px;
+  --radius-xl:   14px;     /* card */
+  --radius-2xl:  16px;     /* island */
+  --radius-pill: 999px;
+
+  /* ─── SHADOW · elevation ──────────────────────────────────── */
+  --shadow-island: 0 4px 14px -2px rgba(24, 30, 58, 0.08), 0 1px 3px rgba(24, 30, 58, 0.04);
+  --shadow-card:   0 18px 48px -12px rgba(24, 30, 58, 0.18);
+  --shadow-accent: 0 8px 24px -8px rgba(75, 108, 255, 0.5);
+  --shadow-chip:   0 4px 14px -2px rgba(24, 30, 58, 0.18), 0 1px 3px rgba(24, 30, 58, 0.06);
+
+  /* ─── MOTION ──────────────────────────────────────────────── */
+  --ease-out:        cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-back:       cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast:   180ms;
+  --duration-normal: 280ms;
+  --duration-slow:   600ms;
+}

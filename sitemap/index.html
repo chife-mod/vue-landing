@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>VUE Landing — Sitemap &amp; Estimate</title>
+
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+
+<link rel="stylesheet" href="../shared/service-menu.css">
+
+<style>
+:root {
+  --brand-blue:       #116490;
+  --brand-blue-light: #9FBACD;
+  --bg-top:    #0a1219;
+  --bg-bottom: #1e2a35;
+  --charcoal:  #1e2a35;
+  --white:     #fff;
+  --accent:    #4B6CFF;
+  --line:      rgba(159, 186, 205, 0.3);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: var(--charcoal);
+  color: var(--white);
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+  overflow-x: hidden;            /* only .board scrolls horizontally */
+}
+
+.wrap {
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 32px 16px;
+}
+
+/* ─── Back link + header ─────────────────────────────────────── */
+
+/* brand logo — sticky top bar on every page, click → main dashboard */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  padding: 0 max(32px, calc(50vw - 508px)) 16px;
+  background: rgba(10, 18, 25, 0.82);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.brand { display: inline-block; height: 53px; }
+.brand img { display: block; height: 100%; width: auto; }
+
+.eyebrow {
+  display: inline-block; font-size: 12px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--brand-blue-light); margin-bottom: 16px;
+}
+
+/* 2-column header: title left, description right */
+.head { display: grid; grid-template-columns: 2fr 1fr; gap: 48px; align-items: end; }
+@media (max-width: 760px) { .head { grid-template-columns: 1fr; gap: 14px; align-items: start; } }
+
+.page-title {
+  font-size: clamp(30px, 4.5vw, 46px); font-weight: 700;
+  letter-spacing: -0.02em; line-height: 1.05; margin-bottom: 0;
+}
+
+.lede {
+  font-size: 14px; line-height: 1.55;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* Estimate section — moved BELOW the sitemap (Sitemap first, Estimate after) */
+.estimate { margin-top: 24px; padding-top: 16px; }
+.estimate__title {
+  font-size: 13px; font-weight: 500; text-transform: uppercase;
+  letter-spacing: 0.14em; color: rgba(255, 255, 255, 0.45); margin-bottom: 20px;
+}
+
+/* Stages strip */
+.stages-wrap { margin-top: 8px; }
+.stages { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+.stage-card { padding: 18px 18px 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; }
+.stage-card__n { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brand-blue-light); }
+.stage-card__pay { font-size: 9px; font-weight: 600; letter-spacing: 0.05em; color: #c3cdff; background: rgba(75,108,255,0.16); border: 1px solid rgba(75,108,255,0.4); border-radius: 4px; padding: 2px 6px; text-transform: none; }
+.stage-card__t { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; margin: 10px 0 6px; }
+.stage-card__d { font-size: 12.5px; line-height: 1.45; color: rgba(255,255,255,0.5); }
+
+/* ─── Notice + legend ────────────────────────────────────────── */
+
+.notice {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 14px 18px;
+  background: rgba(255, 173, 51, 0.08);
+  border: 1px solid rgba(255, 173, 51, 0.28);
+  border-radius: 10px;
+  font-size: 13px; line-height: 1.5;
+  color: rgba(255, 220, 170, 0.92);
+  margin: 24px 0 0;
+}
+.notice strong { color: #ffce8a; font-weight: 600; }
+.notice svg { flex-shrink: 0; width: 18px; height: 18px; margin-top: 1px; color: #ffce8a; }
+.notice--foot { margin-top: 48px; }
+
+.legend {
+  display: flex; flex-wrap: wrap; gap: 18px;
+  margin-top: 24px; font-size: 12px; color: rgba(255,255,255,0.5);
+}
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.legend i {
+  font-style: normal; font-size: 9px; font-weight: 600; letter-spacing: 0.06em;
+  padding: 2px 6px; border-radius: 4px;
+}
+.b-tbc { color: #ffce8a; background: rgba(255,173,51,0.12); border: 1px solid rgba(255,173,51,0.3); }
+.b-p2  { color: #c3cdff; background: rgba(75,108,255,0.16); border: 1px solid rgba(75,108,255,0.4); }
+.b-sep { color: #e0b3ff; background: rgba(168,85,247,0.14); border: 1px solid rgba(168,85,247,0.4); }
+
+/* ─── Rollup stat strip ──────────────────────────────────────── */
+
+.rollup {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1px; background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px; overflow: hidden; margin-top: 32px;
+}
+.stat { background: linear-gradient(180deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0.015) 100%); padding: 22px 20px; }
+.stat--accent { background: linear-gradient(180deg, rgba(75,108,255,0.16) 0%, rgba(75,108,255,0.06) 100%); }
+.stat__label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255, 255, 255, 0.45); margin-bottom: 10px; }
+.stat__value { font-size: 25px; font-weight: 700; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; line-height: 1; }
+.stat__value small { font-size: 13px; font-weight: 500; color: rgba(255, 255, 255, 0.5); }
+.stat--accent .stat__value { color: #c3cdff; }
+
+/* ─── Horizontal sitemap board ───────────────────────────────── */
+
+.board-hint {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.4); margin: 28px 0 16px;
+}
+.board-hint svg { width: 15px; height: 15px; }
+
+.board {
+  display: flex; flex-direction: row; align-items: flex-start; gap: 28px;
+  overflow-x: auto; overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  cursor: grab;                  /* drag-to-pan affordance */
+  /* left edge aligns with the centered .wrap content (max 1080, 32px pad) */
+  padding: 8px max(32px, calc(50vw - 508px)) 40px;
+}
+.board:active { cursor: grabbing; }
+.board::-webkit-scrollbar { height: 10px; }
+.board::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 999px; }
+.board::-webkit-scrollbar-thumb { background: rgba(159,186,205,0.25); border-radius: 999px; }
+.board::-webkit-scrollbar-thumb:hover { background: rgba(159,186,205,0.4); }
+
+/* ─── Page column (vertical) ─────────────────────────────────── */
+
+.column { flex: 0 0 300px; width: 300px; display: flex; flex-direction: column; align-items: center; }
+
+.node {
+  width: 100%; background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; overflow: hidden;
+}
+.node.is-child { border-style: dashed; border-color: rgba(159,186,205,0.3); }
+.node.is-system { border-color: rgba(75,108,255,0.28); background: rgba(75,108,255,0.04); }
+.node.is-work { border-color: rgba(168,85,247,0.32); background: rgba(168,85,247,0.05); }
+
+.node__head { display: flex; flex-direction: column; gap: 8px; padding: 13px 14px; background: rgba(255, 255, 255, 0.04); border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
+.node.is-system .node__head { background: rgba(75,108,255,0.08); }
+.node.is-work .node__head { background: rgba(168,85,247,0.09); }
+
+.node__headtop { display: flex; align-items: center; gap: 9px; }
+
+.node__num { flex-shrink: 0; width: 26px; height: 26px; display: grid; place-items: center; background: rgba(159, 186, 205, 0.12); border: 1px solid rgba(159, 186, 205, 0.24); border-radius: 7px; font-size: 12px; font-weight: 700; color: var(--brand-blue-light); font-variant-numeric: tabular-nums; }
+
+.node__name { flex: 1; min-width: 0; font-size: 14.5px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.node__sub { flex-shrink: 0; font-size: 12px; font-weight: 700; color: var(--brand-blue-light); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* badge row — sits UNDER the page name so long names aren't clipped */
+.node__badges { display: flex; flex-wrap: wrap; gap: 6px; }
+.node__badge { font-size: 9px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; padding: 2px 7px; border-radius: 5px; }
+.node__badge--popup   { color: #ffce8a; background: rgba(255,173,51,0.12); border: 1px solid rgba(255,173,51,0.3); }
+.node__badge--subpage { color: var(--brand-blue-light); background: rgba(159,186,205,0.12); border: 1px solid rgba(159,186,205,0.28); }
+.node__badge--system  { color: #c3cdff; background: rgba(75,108,255,0.16); border: 1px solid rgba(75,108,255,0.4); }
+.node__badge--work    { color: #e0b3ff; background: rgba(168,85,247,0.16); border: 1px solid rgba(168,85,247,0.42); }
+.node__badge--p2      { color: #c3cdff; background: rgba(75,108,255,0.16); border: 1px solid rgba(75,108,255,0.4); }
+.node__badge--excl    { color: #ffce8a; background: rgba(255,173,51,0.12); border: 1px solid rgba(255,173,51,0.38); }
+.node.is-excluded { opacity: 0.72; border-style: dashed; border-color: rgba(255,173,51,0.35); }
+.node__sub--excl { color: rgba(255,206,138,0.9) !important; }
+
+.node__sections { display: flex; flex-direction: column; gap: 8px; padding: 12px; }
+
+/* ─── Section tile ───────────────────────────────────────────── */
+
+.tile { padding: 11px 12px; background: rgba(255, 255, 255, 0.035); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 9px; transition: border-color 180ms ease, background 180ms ease; }
+.tile:hover { border-color: rgba(159,186,205,0.3); background: rgba(255,255,255,0.06); }
+.tile__row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.tile__name { font-size: 13.5px; font-weight: 600; letter-spacing: -0.005em; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tile__hours { flex-shrink: 0; display: inline-flex; align-items: baseline; gap: 3px; padding: 3px 8px; background: rgba(159, 186, 205, 0.12); border: 1px solid rgba(159, 186, 205, 0.22); border-radius: 999px; font-size: 11.5px; font-weight: 700; color: var(--brand-blue-light); font-variant-numeric: tabular-nums; }
+.tile__hours small { font-size: 9px; font-weight: 500; opacity: 0.7; }
+.tile__desc { font-size: 11.5px; line-height: 1.4; color: rgba(255, 255, 255, 0.48); margin-top: 6px; }
+.tile__badges { display: inline-flex; gap: 4px; margin-left: 6px; vertical-align: middle; }
+.tile__badges i { font-style: normal; font-size: 8px; font-weight: 600; letter-spacing: 0.05em; padding: 1px 5px; border-radius: 4px; }
+
+/* ─── Connector ──────────────────────────────────────────────── */
+
+.connector { width: 2px; height: 28px; background: var(--line); }
+.connector--popup { background: repeating-linear-gradient(180deg, var(--line) 0 4px, transparent 4px 8px); }
+
+/* ─── Estimate breakdown ─────────────────────────────────────── */
+
+.breakdown { max-width: 1080px; margin: 24px auto 0; padding: 32px 32px 0; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+.breakdown__title { font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; color: rgba(255, 255, 255, 0.45); margin-bottom: 20px; }
+.breakdown__table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.breakdown__table th, .breakdown__table td { text-align: right; padding: 12px 16px; font-size: 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+.breakdown__table th:first-child, .breakdown__table td:first-child { text-align: left; color: rgba(255,255,255,0.7); }
+.breakdown__table thead th { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255, 255, 255, 0.4); }
+.breakdown__table tr.is-total td { font-weight: 700; font-size: 16px; border-bottom: none; border-top: 2px solid rgba(255, 255, 255, 0.16); padding-top: 16px; }
+.breakdown__table tr.is-total td:not(:first-child) { color: #c3cdff; font-size: 28px; white-space: nowrap; }
+.breakdown__table tr.is-total .mm { font-size: 11px; font-weight: 500; color: #c3cdff; opacity: 0.7; margin-right: 8px; vertical-align: baseline; }
+.breakdown__note { margin-top: 16px; font-size: 12px; color: rgba(255, 255, 255, 0.4); line-height: 1.5; }
+.footer-pad { height: 120px; }
+</style>
+</head>
+<body>
+
+<script>
+  window.PREVIEW_PROJECT_NAME = "VUE Landing";
+  window.PREVIEW_DEFAULT_VERSION = "sitemap";
+  window.PREVIEW_VERSIONS = [
+    { id: "launcher", label: "Dashboard",          desc: "Estimation overview",     path: "../" },
+    { id: "sitemap",  label: "Sitemap & Estimate",  desc: "Sections & hours",        path: "" }
+  ];
+</script>
+
+<header class="topbar">
+  <a class="brand" href="../" aria-label="Most of Design — Dashboard">
+    <img src="../assets/mod-logo-on-dark.svg" alt="Most of Design">
+  </a>
+</header>
+
+<div class="wrap">
+  <header class="head">
+    <div class="head__main">
+      <span class="eyebrow">Most of Design · Preliminary Estimation</span>
+      <h1 class="page-title">VUE Sitemap &amp; Estimate</h1>
+    </div>
+    <p class="lede">
+      VUE landing page for Energy Plus NY — single-page SaaS landing, mapped from the brief.
+      Sections stack inside the page card with hours on every tile; dedicated work blocks
+      (concept, micro-animations, adaptive) sit beside it.
+    </p>
+  </header>
+
+  <div class="board-hint">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M8 7 4 11l4 4M16 7l4 4-4 4M3 11h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Scroll or drag to see all blocks
+  </div>
+</div>
+
+<!-- SITEMAP first -->
+<div class="board" id="board"></div>
+
+<!-- ESTIMATE after — see the work before the price -->
+<div class="wrap estimate">
+  <h2 class="estimate__title">Estimate</h2>
+
+  <div class="rollup" id="rollup"></div>
+
+  <table class="breakdown__table">
+    <thead><tr><th>Line</th><th>Min</th><th>Max</th></tr></thead>
+    <tbody id="breakdownBody"></tbody>
+  </table>
+</div>
+
+<!-- Stages -->
+<div class="wrap stages-wrap">
+  <h2 class="estimate__title">Stages</h2>
+  <div class="stages">
+    <div class="stage-card">
+      <span class="stage-card__n">Stage 1 <span class="stage-card__pay">50% prepaid</span></span>
+      <div class="stage-card__t">Concept &amp; Design</div>
+      <div class="stage-card__d">Visual direction (extension of Energy Plus), all landing-page sections (Header → Footer), interactivity &amp; micro-animations. Desktop. 50% upfront.</div>
+    </div>
+    <div class="stage-card">
+      <span class="stage-card__n">Stage 2 <span class="stage-card__pay">prepay → deliver</span></span>
+      <div class="stage-card__t">Adaptive Design</div>
+      <div class="stage-card__d">Tablet &amp; mobile layouts (≈ 30% of design scope). Prepaid, then delivered.</div>
+    </div>
+    <div class="stage-card">
+      <span class="stage-card__n">Stage 3 <span class="stage-card__pay">100% final payment</span></span>
+      <div class="stage-card__t">Implementation &amp; Handoff</div>
+      <div class="stage-card__d">Front-end + back-end (form → Pipedrive), testing, sign-off and handoff. Final payment closes the project.</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-pad"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   SINGLE SOURCE OF TRUTH — VUE landing for Energy Plus NY (from brief).
+   Page = { name, sections:[ {name, desc?, min, max, tbc?, p2?, sep?} ],
+            children?:[ { name, kind:"subpage"|"popup", ...page } ],
+            system?:true, p2?:true }
+   Flags: tbc = requires clarification · p2 = phase 2 · sep = separate work block.
+   Hours are in HOURS (min/max).
+   ─────────────────────────────────────────────────────────────── */
+const CONFIG = { rate: 40, commentsMin: 0.15, commentsMax: 0.20, mgmtMin: 0.10, mgmtMax: 0.10, hoursPerDay: 6 };
+
+const SITEMAP = [
+  { name: "Landing Page", sections: [
+      { name: "Header / Nav",     desc: "Logo, top nav, primary CTA — light adaptation of the existing Energy Plus header (~20–30 min).", min: 0.3, max: 0.5 },
+      { name: "Hero",             desc: "Headline (\"Managing a portfolio of NYC buildings shouldn't be this hard\"), 3-line problem framing, sub-headline, primary CTA (Request a Demo).", min: 2, max: 3 },
+      { name: "What is VUE?",     desc: "Intro block — defines VUE as Energy Plus NY's building intelligence platform. \"No spreadsheets. No chasing updates. No surprises.\"", min: 1.5, max: 2.5 },
+      { name: "See Everything In One Place — features", desc: "5 feature cards: Portfolio Visibility · Compliance Tracking · Energy Insights · Benchmarking · Deadline Management.", min: 1.5, max: 2.5 },
+      { name: "Why We Built VUE", desc: "Problem narrative with LL84 / LL87 / LL97 / utility reporting / benchmarking list — \"the information exists, the problem is it's scattered.\"", min: 1.5, max: 2.5 },
+      { name: "Built for NYC Buildings", desc: "Credibility block — \"developed by the team behind Energy Plus NY. Not generic software. Built for New York.\"", min: 1.5, max: 2.5 },
+      { name: "Coming Soon — LL97 Carbon Analysis", desc: "Feature teaser: carbon exposure, projected penalties, reduction opportunities — inside VUE.", min: 1.5, max: 2.5 },
+      { name: "Final CTA",        desc: "Closing block — \"Stay ahead.\" Request Early Access / Request a Demo. All CTAs route to the existing site form → Pipedrive.", min: 1.5, max: 2.5, tbc: true },
+      { name: "Footer",           desc: "Links, contacts, legal — same scope as Header (~20–30 min).", min: 0.3, max: 0.5 },
+  ]},
+  { name: "Interactivity & Micro-animations", work: true, tag: "Animation", sections: [
+      { name: "Section transitions", desc: "Reveal on scroll, subtle parallax between blocks.", min: 1, max: 2 },
+      { name: "Micro-interactions",  desc: "Hover, buttons, focus states, form micro-feedback.", min: 1, max: 2 },
+      { name: "Hero visual moment",  desc: "One animated hero accent — dashboard preview / illustration motion (Lemonade-style).", min: 1, max: 2 },
+  ]},
+  { name: "Adaptive Design", work: true, tag: "Responsive", sections: [
+      { name: "Tablet & Mobile", desc: "30% of total design scope. Auto-computed.", computed: true, pctMin: 0.30, pctMax: 0.30 },
+  ]},
+  { name: "Implementation", work: true, tag: "Build", noAdaptiveBase: true, displayAs: "money", sections: [
+      { name: "Front-end", desc: "Page build into the existing Energy Plus site.", min: 6.25, max: 8.75 },
+      { name: "Back-end",  desc: "Form → Pipedrive wiring, tracking.", min: 6.25, max: 8.75 },
+  ]},
+];
+
+/* ─── Helpers ────────────────────────────────────────────────── */
+const fmtH = (n) => (Number.isInteger(n) ? String(n) : n.toFixed(1));
+const fmtUSD = (n) => "$" + Math.round(n).toLocaleString("en-US");
+const sumSecs = (secs) => secs.reduce((a, s) => [a[0] + s.min, a[1] + s.max], [0, 0]);
+
+let grandMin = 0, grandMax = 0, sectionCount = 0, pageCount = 0;
+
+function badges(s) {
+  let h = "";
+  if (s.tbc) h += `<i class="b-tbc">TBC</i>`;
+  if (s.p2)  h += `<i class="b-p2">P2</i>`;
+  if (s.sep) h += `<i class="b-sep">SEP</i>`;
+  return h ? `<span class="tile__badges">${h}</span>` : "";
+}
+
+function tilesHTML(sections, displayAs) {
+  return sections.map((s) => {
+    const pill = (displayAs === "money")
+      ? `${fmtUSD(s.min * CONFIG.rate)}–${fmtUSD(s.max * CONFIG.rate)}`
+      : `${fmtH(s.min)}–${fmtH(s.max)}<small>h</small>`;
+    return `
+    <div class="tile">
+      <div class="tile__row">
+        <span class="tile__name">${s.name}${badges(s)}</span>
+        <span class="tile__hours">${pill}</span>
+      </div>
+      ${s.desc ? `<div class="tile__desc">${s.desc}</div>` : ""}
+    </div>`;
+  }).join("");
+}
+
+const KIND_LABEL = { subpage: "Subpage", popup: "Pop-up", system: "System", work: "Scope" };
+
+function nodeHTML({ num, kind, tag, name, sections, cls, p2, excluded, displayAs }) {
+  const [mn, mx] = sumSecs(sections);
+  if (!excluded) {
+    grandMin += mn; grandMax += mx;
+    // Sections count = only page sections (work-blocks like Interactivity / Adaptive /
+    // Implementation are scope, not page sections — `num` is only set for real pages).
+    if (num) sectionCount += sections.filter(s => !s.computed).length;
+  }
+  const badges = [];
+  if (kind) badges.push(`<span class="node__badge node__badge--${kind}">${tag || KIND_LABEL[kind] || kind}</span>`);
+  if (p2)   badges.push(`<span class="node__badge node__badge--p2">Phase 2</span>`);
+  if (excluded) badges.push(`<span class="node__badge node__badge--excl">Quoted after audit</span>`);
+  let sub;
+  if (excluded) {
+    sub = `<span class="node__sub node__sub--excl">${fmtH(mn)}–${fmtH(mx)}h · excl.</span>`;
+  } else if (displayAs === "money") {
+    sub = `<span class="node__sub">${fmtUSD(mn * CONFIG.rate)}–${fmtUSD(mx * CONFIG.rate)}</span>`;
+  } else {
+    sub = `<span class="node__sub">${fmtH(mn)}–${fmtH(mx)}h</span>`;
+  }
+  return `
+    <div class="node ${cls || ""}${excluded ? " is-excluded" : ""}">
+      <div class="node__head">
+        <div class="node__headtop">
+          ${num ? `<span class="node__num">${num}</span>` : ""}
+          <span class="node__name" title="${name}">${name}</span>
+          ${sub}
+        </div>
+        ${badges.length ? `<div class="node__badges">${badges.join("")}</div>` : ""}
+      </div>
+      <div class="node__sections">${tilesHTML(sections, displayAs)}</div>
+    </div>`;
+}
+
+/* ─── Pre-pass: fill computed sections (Adaptive = pct of all else) ─ */
+let baseMin = 0, baseMax = 0;
+SITEMAP.forEach((p) => {
+  if (p.excluded) return;        // excluded columns don't feed the estimate or the adaptive base
+  if (p.noAdaptiveBase) return;  // implementation / fixed-allocation blocks don't feed adaptive
+  [...p.sections, ...((p.children || []).flatMap((c) => c.sections))]
+    .forEach((s) => { if (!s.computed) { baseMin += s.min; baseMax += s.max; } });
+});
+SITEMAP.forEach((p) => {
+  [...p.sections, ...((p.children || []).flatMap((c) => c.sections))]
+    .forEach((s) => { if (s.computed) { s.min = Math.round(baseMin * s.pctMin * 2) / 2; s.max = Math.round(baseMax * s.pctMax * 2) / 2; } });
+});
+
+/* ─── Render board ───────────────────────────────────────────── */
+const board = document.getElementById("board");
+let pageIndex = 0;
+SITEMAP.forEach((page) => {
+  // Pages count = only real pages (not work-blocks / system). Work-blocks are scope, not pages.
+  if (!page.work && !page.system && !page.excluded) pageCount += 1;
+  let nodeArgs;
+  if (page.work) {
+    nodeArgs = { kind: "work", tag: page.tag, name: page.name, sections: page.sections, cls: "is-work", p2: page.p2, displayAs: page.displayAs };
+  } else if (page.system) {
+    nodeArgs = { kind: "system", name: page.name, sections: page.sections, cls: "is-system", p2: page.p2, displayAs: page.displayAs };
+  } else {
+    pageIndex += 1;
+    nodeArgs = { num: String(pageIndex).padStart(2, "0"), name: page.name, sections: page.sections, p2: page.p2, excluded: page.excluded };
+  }
+
+  let col = `<div class="column">`;
+  col += nodeHTML(nodeArgs);
+  (page.children || []).forEach((child) => {
+    if (child.kind !== "popup") pageCount += 1;
+    col += `<div class="connector${child.kind === "popup" ? " connector--popup" : ""}"></div>`;
+    col += nodeHTML({ kind: child.kind, name: child.name, sections: child.sections, cls: "is-child", p2: child.p2 });
+  });
+  col += `</div>`;
+  board.insertAdjacentHTML("beforeend", col);
+});
+
+/* ─── Drag-to-pan horizontal scroll (grab & drag the board) ──── */
+(() => {
+  let down = false, startX = 0, startScroll = 0, moved = 0;
+  board.addEventListener("pointerdown", (e) => {
+    // ignore drags that start on links/buttons
+    if (e.target.closest("a, button")) return;
+    down = true; moved = 0;
+    startX = e.clientX; startScroll = board.scrollLeft;
+    board.setPointerCapture(e.pointerId);
+    board.style.cursor = "grabbing";
+    board.style.userSelect = "none";
+  });
+  board.addEventListener("pointermove", (e) => {
+    if (!down) return;
+    const dx = e.clientX - startX;
+    moved = Math.max(moved, Math.abs(dx));
+    board.scrollLeft = startScroll - dx;
+  });
+  const end = () => { down = false; board.style.cursor = ""; board.style.userSelect = ""; };
+  board.addEventListener("pointerup", end);
+  board.addEventListener("pointercancel", end);
+  // suppress click after a real drag (so cards don't fire)
+  board.addEventListener("click", (e) => { if (moved > 6) { e.preventDefault(); e.stopPropagation(); } }, true);
+})();
+
+/* ─── Totals ─────────────────────────────────────────────────── */
+const subMin = grandMin * CONFIG.rate, subMax = grandMax * CONFIG.rate;
+const commMin = subMin * CONFIG.commentsMin, commMax = subMax * CONFIG.commentsMax;
+const mgmtMin = subMin * CONFIG.mgmtMin,     mgmtMax = subMax * CONFIG.mgmtMax;
+const totMin = subMin + commMin + mgmtMin,   totMax = subMax + commMax + mgmtMax;
+// working days @ 6 delivered hours/day
+const daysMin = Math.ceil(grandMin / CONFIG.hoursPerDay);
+const daysMax = Math.ceil(grandMax / CONFIG.hoursPerDay);
+
+document.getElementById("rollup").innerHTML = `
+  <div class="stat"><div class="stat__label">Pages / nodes</div><div class="stat__value">${pageCount}</div></div>
+  <div class="stat"><div class="stat__label">Sections</div><div class="stat__value">${sectionCount}</div></div>
+  <div class="stat"><div class="stat__label">Hours</div><div class="stat__value">${fmtH(grandMin)}–${fmtH(grandMax)}</div></div>
+  <div class="stat"><div class="stat__label">Working days</div><div class="stat__value">${daysMin}–${daysMax}</div></div>`;
+
+const pctLabel = (a, b) => (a === b ? `${a * 100}%` : `${a * 100}–${b * 100}%`);
+document.getElementById("breakdownBody").innerHTML = `
+  <tr><td>Subtotal (${fmtH(grandMin)}–${fmtH(grandMax)} h)</td><td>${fmtUSD(subMin)}</td><td>${fmtUSD(subMax)}</td></tr>
+  <tr><td>Comments &amp; Unplanned Work (${pctLabel(CONFIG.commentsMin, CONFIG.commentsMax)})</td><td>${fmtUSD(commMin)}</td><td>${fmtUSD(commMax)}</td></tr>
+  <tr><td>Management &amp; communication (${pctLabel(CONFIG.mgmtMin, CONFIG.mgmtMax)})</td><td>${fmtUSD(mgmtMin)}</td><td>${fmtUSD(mgmtMax)}</td></tr>
+  <tr class="is-total"><td>Total estimate</td><td><small class="mm">min</small> ${fmtUSD(totMin)}</td><td><small class="mm">max</small> ${fmtUSD(totMax)}</td></tr>`;
+</script>
+
+<script defer src="../shared/service-menu.js"></script>
+</body>
+</html>

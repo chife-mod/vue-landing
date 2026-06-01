@@ -313,18 +313,18 @@ body {
    Flags: tbc = requires clarification · p2 = phase 2 · sep = separate work block.
    Hours are in HOURS (min/max).
    ─────────────────────────────────────────────────────────────── */
-const CONFIG = { rate: 40, commentsMin: 0.15, commentsMax: 0.20, mgmtMin: 0.10, mgmtMax: 0.10, hoursPerDay: 6 };
+const CONFIG = { rate: 40, commentsMin: 0.15, commentsMax: 0.20, mgmtMin: 0.10, mgmtMax: 0.15, hoursPerDay: 6 };
 
 const SITEMAP = [
   { name: "Landing Page", sections: [
       { name: "Header / Nav",     desc: "Logo, top nav, primary CTA — light adaptation of the existing Energy Plus header (~20–30 min).", min: 0.3, max: 0.5 },
       { name: "Hero",             desc: "Headline (\"Managing a portfolio of NYC buildings shouldn't be this hard\"), 3-line problem framing, sub-headline, primary CTA (Request a Demo).", min: 2, max: 3 },
-      { name: "What is VUE?",     desc: "Intro block — defines VUE as Energy Plus NY's building intelligence platform. \"No spreadsheets. No chasing updates. No surprises.\"", min: 1.5, max: 2.5 },
-      { name: "See Everything In One Place — features", desc: "5 feature cards: Portfolio Visibility · Compliance Tracking · Energy Insights · Benchmarking · Deadline Management.", min: 1.5, max: 2.5 },
-      { name: "Why We Built VUE", desc: "Problem narrative with LL84 / LL87 / LL97 / utility reporting / benchmarking list — \"the information exists, the problem is it's scattered.\"", min: 1.5, max: 2.5 },
-      { name: "Built for NYC Buildings", desc: "Credibility block — \"developed by the team behind Energy Plus NY. Not generic software. Built for New York.\"", min: 1.5, max: 2.5 },
-      { name: "Coming Soon — LL97 Carbon Analysis", desc: "Feature teaser: carbon exposure, projected penalties, reduction opportunities — inside VUE.", min: 1.5, max: 2.5 },
-      { name: "Final CTA",        desc: "Closing block — \"Stay ahead.\" Request Early Access / Request a Demo. All CTAs route to the existing site form → Pipedrive.", min: 1.5, max: 2.5, tbc: true },
+      { name: "What is VUE?",     desc: "Intro block — defines VUE as Energy Plus NY's building intelligence platform. \"No spreadsheets. No chasing updates. No surprises.\"", min: 1.5, max: 3 },
+      { name: "See Everything In One Place — features", desc: "5 feature cards: Portfolio Visibility · Compliance Tracking · Energy Insights · Benchmarking · Deadline Management.", min: 1.5, max: 3 },
+      { name: "Why We Built VUE", desc: "Problem narrative with LL84 / LL87 / LL97 / utility reporting / benchmarking list — \"the information exists, the problem is it's scattered.\"", min: 1.5, max: 3 },
+      { name: "Built for NYC Buildings", desc: "Credibility block — \"developed by the team behind Energy Plus NY. Not generic software. Built for New York.\"", min: 1.5, max: 3 },
+      { name: "Coming Soon — LL97 Carbon Analysis", desc: "Feature teaser: carbon exposure, projected penalties, reduction opportunities — inside VUE.", min: 1.5, max: 3 },
+      { name: "Final CTA",        desc: "Closing block — \"Stay ahead.\" Request Early Access / Request a Demo. All CTAs route to the existing site form → Pipedrive.", min: 1.5, max: 3, tbc: true },
       { name: "Footer",           desc: "Links, contacts, legal — same scope as Header (~20–30 min).", min: 0.3, max: 0.5 },
   ]},
   { name: "Interactivity & Micro-animations", work: true, tag: "Animation", sections: [
